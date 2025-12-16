@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: azure;
+}
+
+h1 {
+    color: green;
+}
+
+span {
+    color: yellow;
+}
+
+
+div.row d-flex justify-content-end text-center {
+    position: relative;
+    top: 0px;
+}
+

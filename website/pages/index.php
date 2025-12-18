@@ -23,7 +23,7 @@ session_start();
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav gap-5">
                 <li class="nav-item">
-                    <a class="nav-link" href="index1.php">
+                    <a class="nav-link" href="index.php">
                         <h2 class="m-0" style="color:yellow;">Home</h2>
                     </a>
                 </li>

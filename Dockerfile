@@ -1,16 +1,15 @@
-# Use official PHP Apache image
 FROM php:8.2-apache
 
-# Enable Apache rewrite module
+# Enable Apache rewrite
 RUN a2enmod rewrite
 
-# Install MySQL extensions for PHP
+# Install MySQL extensions
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Copy project files into container
+# Copy project files
 COPY . /var/www/html/
 
-# Replace default Apache config with custom one
+# Use custom Apache config
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Set permissions

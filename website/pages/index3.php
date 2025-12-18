@@ -1,4 +1,34 @@
 <?php
+
+$conn = mysqli_connect("127.0.0.1", "root", "biralo", "users", 3307);
+
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+session_start();
+if (!isset($_SESSION['username'])) {
+    // redirect to login if not logged in
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+
+
+
+if (isset($_POST['post_comment'])) {
+    if (!empty($_POST['comment'])) {
+        $comment = mysqli_real_escape_string($conn, $_POST['comment']);
+        $sql = "INSERT INTO comments (username, comment) VALUES ('$username', '$comment')";
+        mysqli_query($conn, $sql);
+    }
+}
+?>
+
+
+
+<?php
 // Recipe data array
 $recipes = [
     [

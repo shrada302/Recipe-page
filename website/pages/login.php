@@ -1,19 +1,26 @@
 <?php
+session_start();
 $login = false;
 $showError = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   include "_dbconnection.php";
-  
+
   $username = $_POST["username"]??"";
   $password = $_POST["password"]??"";
+
+ $email = mysqli_real_escape_string($conn, $email);
+    $password = mysqli_real_escape_string($conn, $password);
 
   $sql = "Select * from visitors where username='$username' AND password='$password'";
   $result = mysqli_query($conn, $sql);
   $num = mysqli_num_rows($result);
   if ($num == 0) {
     $login = true;
+ $_SESSION['username'] = $email;
+    header("location: contact.php");
+ exit(); //
   }
   else {
     $showError = "Invalid Credentials";
@@ -41,13 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php
         if ($login === true) {
             echo '<meta http-equiv="refresh" content="3; url=index1.php">';
-            
+
             echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> You have signed up!!! Redirecting to home page...
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>';
         }
-        
+
         // Display Error Alert
         if (!empty($showError)) {
             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -68,10 +75,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" class="form-control" name="Password" required>
             </div>
 
-          
+
 
             <div class="d-grid">
-                <p>Don't have an  account?? <a href="signup.php" style="color: red; text-decoration: none;">SIGNUP</a> </p>
+                <p>Don't have an account?? <a href="signup.php" style="color: red; text-decoration: none;">SIGNUP</a>
+                </p>
                 <button type="submit" class="btn btn-danger">Submit</button>
             </div>
         </form>

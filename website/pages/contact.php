@@ -1,5 +1,3 @@
-
-
 <?php
 
 $conn = mysqli_connect("127.0.0.1", "root", "biralo", "users", 3307);
@@ -9,9 +7,14 @@ if (!$conn) {
 }
 
 session_start();
+if (!isset($_SESSION['username'])) {
+    // redirect to login if not logged in
+    header("Location: login.php");
+    exit();
+}
 
+$username = $_SESSION['username'];
 
-$username = $_SESSION[''] ?? "";
 
 
 if (isset($_POST['post_comment'])) {
@@ -97,7 +100,8 @@ if (isset($_POST['post_comment'])) {
                         </h4>
 
                         <button class="btn btn-danger d-flex align-items-center fw-semibold" id="logoutButton">
-                            <a href="login.php" style="text-decoration: none; color: white;;"> <i class="bi bi-box-arrow-right me-1"></i>
+                            <a href="login.php" style="text-decoration: none; color: white;;"> <i
+                                    class="bi bi-box-arrow-right me-1"></i>
                                 Logout
                             </a>
                         </button>

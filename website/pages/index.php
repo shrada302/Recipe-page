@@ -1,7 +1,31 @@
 <?php
-session_start();
 
+$conn = mysqli_connect("127.0.0.1", "root", "biralo", "users", 3307);
+
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+session_start();
+if (!isset($_SESSION['username'])) {
+    // redirect to login if not logged in
+    header("Location: login.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+
+
+
+if (isset($_POST['post_comment'])) {
+    if (!empty($_POST['comment'])) {
+        $comment = mysqli_real_escape_string($conn, $_POST['comment']);
+        $sql = "INSERT INTO comments (username, comment) VALUES ('$username', '$comment')";
+        mysqli_query($conn, $sql);
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +72,7 @@ session_start();
 
     <main class="main bg-custom-gray fw-bold" style="background-color: white;">
         <div style="height: 100vh; width: 100%; overflow: hidden;">
-            <img src="/food/website/template/food1.png" style="width: 100%; height: 100vh; object-fit: cover;">
+            <img src="/FOOD/website/pages/template/food1.png" style="width: 100%; height: 100vh; object-fit: cover;">
             <div class="position-relative" style="height: 200px;">
                 <p class="position-absolute z-5 text-center"
                     style="top: -320px; left: 37%; transform: translateX(-30%); z-index: 100; 
@@ -66,19 +90,24 @@ session_start();
 
             <div class="d-flex overflow-auto bg-warning">
                 <div class="flex-shrink-0  p-3 me-3" style="width: 250px;">
-                    <img src="/food/website/template/Rectangle 1.png" alt="_Fire And Ice Pizzeria - Thamel" class="img-fluid rounded shadow">
-                    <div class="mt-2 fw-semibold text-truncate">Fire And Ice Pizzeria- Thamel</div>
+                    <img src="/FOOD/website/pages/template/Rectangle 1.png"
+                        alt="Fire And Ice Pizzeria - Thamel"
+                        class="img-fluid rounded shadow">
+
+                    <div class="mt-2 fw-semibold text-truncate">
+                        Fire And Ice Pizzeria - Thamel
+                    </div>
                 </div>
                 <div class="flex-shrink-0  p-3 me-3" style="width: 250px;">
-                    <img src="/food/website/template/Rectangle 2.png" alt="_Burger Shack - Kamaladi" class="img-fluid rounded shadow">
+                    <img src="/FOOD/website/pages/template/Rectangle 2.png" alt="_Burger Shack - Kamaladi" class="img-fluid rounded shadow">
                     <div class="mt-2 fw-semibold text-truncate">Burger Shack- Kamaladi</div>
                 </div>
                 <div class="flex-shrink-0  p-3 me-3" style="width: 250px;">
-                    <img src="/food/website/template/Rectangle 3.png" alt="_Kathmandu Marriott" class="img-fluid rounded shadow">
+                    <img src="/FOOD/website/pages/template/Rectangle 3.png" alt="_Kathmandu Marriott" class="img-fluid rounded shadow">
                     <div class="mt-2 fw-semibold text-truncate">Kathmandu Marriott</div>
                 </div>
                 <div class="flex-shrink-0  p-3 me-3" style="width: 250px;">
-                    <img src="/food/website/template/Rectangle 4.png" alt="_4 Corners - Detroit Style Pizza" class="img-fluid rounded shadow">
+                    <img src="/FOOD/website/pages/template/Rectangle 4.png" alt="_4 Corners - Detroit Style Pizza" class="img-fluid rounded shadow">
                     <div class="mt-2 fw-semibold text-truncate">4 Corners - Detroit Style Pizza</div>
                 </div>
 
@@ -101,12 +130,12 @@ session_start();
             <h2 class="text-center mb-4 text-dark fw-bold">Explore Our Sections</h2>
             <div class="d-flex justify-content-center align-items-stretch gap-4 flex-wrap">
 
-               
+
 
 
                 <a href="index3.php" class="flex-shrink-0 p-3 text-center"
                     style="width: 300px; text-decoration: none; color: inherit;">
-                    <img src="/food/website/template/Rectangle 9.png" alt="Burger Shack - Kamaladi" class="img-fluid"
+                    <img src="/FOOD/website/pages/template/Rectangle 9.png" alt="Burger Shack - Kamaladi" class="img-fluid"
                         style="max-height: 300px; object-fit: cover;">
                     <div class="mt-2 fw-bold">Recipes</div>
                 </a>
